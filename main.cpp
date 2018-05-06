@@ -27,7 +27,13 @@ void MergeSort(vector<T> & vec);
 template <class T>
 bool binarySearch(vector<T> & vec, T item);
 
-int MyHash(const string word);
+void printTF(bool tf)
+{
+	if (tf)
+		cout << "True" << endl;
+	else
+		cout << "False" << endl;
+}
 
 int main()
 {
@@ -37,21 +43,21 @@ int main()
 
 	QuickSort(vec);
 	sort(vec2.begin(), vec2.end());
-	cout << (vec == vec2) << endl;
+	printTF((vec == vec2));
 
 	MergeSort(vec3);
-	cout << (vec == vec3 && vec2 == vec3) << endl;
+	printTF((vec == vec3 && vec2 == vec3));
 
-	cout << binarySearch(vec, 'w') << endl;
-	cout << binarySearch(vec, 'a') << endl;
+	printTF(binarySearch(vec, 'w'));
+	printTF(binarySearch(vec, 'a'));
 
 	cout << MyHash("hello") << endl;
 	cout << MyHash("goodbye") << endl;
 
 	BloomFilter filter(100, 5);
 	filter.add("hello world");
-	cout << filter.contains("hello world") << endl;
-	cout << filter.contains("goodbye") << endl;
+	printTF(filter.contains("hello world"));
+	printTF(filter.contains("goodbye"));
 	return 0;
 }
 
