@@ -6,6 +6,7 @@
 #include<algorithm>
 #include<iostream>
 #include<vector>
+#include<string>
 
 using namespace std;
 using std::cout;
@@ -27,8 +28,8 @@ void MergeSort(vector<T> & vec);
 template <class T>
 bool binarySearch(vector<T> & vec, T item);
 
-template <class T>
-int MyHash(T word);
+int MyHash(const string word);
+
 
 int main()
 {
@@ -45,6 +46,9 @@ int main()
 
 	cout << binarySearch(vec, 'w') << endl;
 	cout << binarySearch(vec, 'a') << endl;
+
+	cout << MyHash("hello") << endl;
+	cout << MyHash("goodbye") << endl;
 
 	return 0;
 }
@@ -193,4 +197,19 @@ bool binarySearch(vector<T> & vec, T item)
 			}
 		}
 	}
+}
+
+int MyHash(const string word)
+{
+	int a = 102938213;
+	int b = 291829421;
+
+	int hash = 0;
+	for (int i = 0; i < word.length(); i += 2)
+	{
+		hash += word[i] * a + word[i + 1] * b;
+		hash *= a*b;
+		hash % 198123;
+	}
+	return hash;
 }
