@@ -5,8 +5,7 @@
 
 #include<algorithm>
 #include<iostream>
-#include<vector>
-#include<string>
+#include "project2.h"
 
 using namespace std;
 using std::cout;
@@ -30,7 +29,6 @@ bool binarySearch(vector<T> & vec, T item);
 
 int MyHash(const string word);
 
-
 int main()
 {
 	vector<char> vec = { 'a','b','g','c','f','a' };
@@ -50,6 +48,10 @@ int main()
 	cout << MyHash("hello") << endl;
 	cout << MyHash("goodbye") << endl;
 
+	BloomFilter filter(100, 5);
+	filter.add("hello world");
+	cout << filter.contains("hello world") << endl;
+	cout << filter.contains("goodbye") << endl;
 	return 0;
 }
 
@@ -197,19 +199,4 @@ bool binarySearch(vector<T> & vec, T item)
 			}
 		}
 	}
-}
-
-int MyHash(const string word)
-{
-	int a = 102938213;
-	int b = 291829421;
-
-	int hash = 0;
-	for (int i = 0; i < word.length(); i += 2)
-	{
-		hash += word[i] * a + word[i + 1] * b;
-		hash *= a*b;
-		hash % 198123;
-	}
-	return hash;
 }
