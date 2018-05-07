@@ -35,29 +35,71 @@ void printTF(bool tf)
 		cout << "False" << endl;
 }
 
+vector<char> getChars(size_t listSize)
+{
+	vector<char> theList;
+	for (size_t i = 0; i < listSize; ++i)
+	{
+		theList.push_back(rand());
+	}
+	return theList;
+}
+string randString(int size)
+{
+	string word;
+	for (int i = 0; i < size; i++)
+	{
+		word.push_back(rand());
+	}
+	return word;
+}
+
 int main()
 {
-	vector<char> vec = { 'a','b','g','c','f','a' };
+	int maxSize = 10000;
+	vector<char> vec = getChars(maxSize);
 	vector<char> vec2 = vec;
 	vector<char> vec3 = vec;
 
 	QuickSort(vec);
 	sort(vec2.begin(), vec2.end());
+	cout << "Quick sort == stl sort: ";
 	printTF((vec == vec2));
 
 	MergeSort(vec3);
+	cout << "Merge sort == stl sort == quick sort: ";
 	printTF((vec == vec3 && vec2 == vec3));
 
+	cout << "Vector contains w:";
 	printTF(binarySearch(vec, 'w'));
+	cout << "Vector contains a:";
 	printTF(binarySearch(vec, 'a'));
 
-	cout << MyHash("hello") << endl;
-	cout << MyHash("goodbye") << endl;
-
-	BloomFilter filter(100, 5);
-	filter.add("hello world");
+	BloomFilter filter(10000, 5);
+	for (int i = 0; i < 100; i++)
+	{
+		filter.add(randString(i + 1));
+	}
+	cout << "Bloom filter, size 10000, 100 random words. Possible Collisions:" << endl;
+	cout << "hello world: ";
 	printTF(filter.contains("hello world"));
+	cout << "goodbye: ";
 	printTF(filter.contains("goodbye"));
+	cout << "abc: ";
+	printTF(filter.contains("abc"));
+
+	BloomFilter filter2(100, 2);
+	for (int i = 0; i < 100; i++)
+	{
+		filter2.add(randString(i + 1));
+	}
+	cout << "Bloom filter, size 100, 100 random words. Possible Collisions:" << endl;
+	cout << "hello world: ";
+	printTF(filter2.contains("hello world"));
+	cout << "goodbye: ";
+	printTF(filter2.contains("goodbye"));
+	cout << "abc: ";
+	printTF(filter2.contains("abc"));
 	return 0;
 }
 
